@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
+import { LayoutGroup, motion } from 'framer-motion';
 
 import { range } from '@/utils';
 import Card from '@/components/Card';
@@ -14,6 +15,7 @@ function DivisionGroupsDemo({
   initialNumOfGroups = 1,
   includeRemainderArea,
 }) {
+  const id = React.useId();
   const [numOfGroups, setNumOfGroups] = React.useState(
     initialNumOfGroups
   );
@@ -59,18 +61,28 @@ function DivisionGroupsDemo({
           className={clsx(styles.demoArea)}
           style={gridStructure}
         >
-          {range(numOfGroups).map((groupIndex) => (
-            <div key={groupIndex} className={styles.group}>
-              {range(numOfItemsPerGroup).map((index) => {
-                return (
-                  <div
-                    key={index}
-                    className={styles.item}
-                  />
-                );
-              })}
-            </div>
-          ))}
+          <LayoutGroup>
+            {range(numOfGroups).map((groupIndex) => (
+
+              <div key={groupIndex} className={styles.group}>
+                {range(numOfItemsPerGroup).map((index) => {
+                  const layoutId = `${id}-${index}-${groupIndex}`;
+                  return (
+                    <motion.div
+                      layoutId={layoutId}
+                      key={layoutId}
+                      className={styles.item}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 500,
+                        damping: 40 + index * 5,
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </LayoutGroup>
         </div>
       </div>
 
