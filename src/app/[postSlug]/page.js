@@ -17,6 +17,13 @@ const DivisionGroupsDemo = dynamic(
   }
 );
 
+const CircularColorsDemo = dynamic(
+  () => import('../../components/CircularColorsDemo'),
+  {
+    loading: Spinner
+  }
+);
+
 export async function generateMetadata({params}) {
   const {frontmatter: { title, abstract }} = await loadBlogPost(params.postSlug);
 
@@ -41,6 +48,7 @@ async function BlogPost({params}) {
           source={content}
           components={{
             DivisionGroupsDemo,
+            CircularColorsDemo,
             pre: CodeSnippet
           }}
         />
