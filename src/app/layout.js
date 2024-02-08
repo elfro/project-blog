@@ -6,10 +6,12 @@ import {
 import clsx from 'clsx';
 import { cookies } from 'next/headers';
 
-import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import RespectMotionPreferences from '@/components/RespectMotionPreferences';
+
+import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
+
 import './styles.css';
 
 const mainFont = Work_Sans({

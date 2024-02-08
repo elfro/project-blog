@@ -70,8 +70,6 @@ function CircularColorsDemo() {
                 />
               )}
               <div
-                // layoutId={layoutId}
-                // key={layoutId}
                 className={clsx(
                   styles.colorBox,
                   isSelected &&

@@ -1,14 +1,14 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 import BlogHero from '@/components/BlogHero';
 import CodeSnippet from '@/components/CodeSnippet';
+import Spinner from '@/components/Spinner';
 
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { loadBlogPost } from '@/helpers/file-helpers';
 
 import styles from './postSlug.module.css';
-import dynamic from 'next/dynamic';
-import Spinner from '@/components/Spinner';
 
 const DivisionGroupsDemo = dynamic(
   () => import('../../components/DivisionGroupsDemo'),
