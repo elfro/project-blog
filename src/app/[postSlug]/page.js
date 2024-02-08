@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { notFound } from 'next/navigation';
 
 import BlogHero from '@/components/BlogHero';
 import CodeSnippet from '@/components/CodeSnippet';
@@ -25,7 +26,13 @@ const CircularColorsDemo = dynamic(
 );
 
 export async function generateMetadata({params}) {
-  const {frontmatter: { title, abstract }} = await loadBlogPost(params.postSlug);
+  const postData = await loadBlogPost(params.postSlug);
+
+  if (!postData) {
+    return null;
+  }
+
+  const {frontmatter: { title, abstract }} = postData;
 
   return {
     title,
@@ -34,6 +41,10 @@ export async function generateMetadata({params}) {
 }
 async function BlogPost({params}) {
   const postData = await loadBlogPost(params.postSlug);
+
+  if (!postData) {
+    notFound();
+  }
 
   const {frontmatter: { title, publishedOn}, content} = postData;
 
