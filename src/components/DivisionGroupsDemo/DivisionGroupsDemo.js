@@ -24,6 +24,8 @@ function DivisionGroupsDemo({
     numOfItems / numOfGroups
   );
 
+  const totalNumInGroups = numOfGroups * numOfItemsPerGroup;
+
   const remainder = includeRemainderArea
     ? numOfItems % numOfGroups
     : null;
@@ -56,49 +58,59 @@ function DivisionGroupsDemo({
         />
       </header>
 
-      <div className={styles.demoWrapper}>
-        <div
-          className={clsx(styles.demoArea)}
-          style={gridStructure}
-        >
-          <LayoutGroup>
-            {range(numOfGroups).map((groupIndex) => (
+      <LayoutGroup>
+        <div className={styles.demoWrapper}>
+          <div
+            className={clsx(styles.demoArea)}
+            style={gridStructure}
+          >
 
-              <div key={groupIndex} className={styles.group}>
-                {range(numOfItemsPerGroup).map((index) => {
-                  const layoutId = `${id}-${index}-${groupIndex}`;
-                  return (
-                    <motion.div
-                      layoutId={layoutId}
-                      key={layoutId}
-                      className={styles.item}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 500,
-                        damping: 40 + index * 5,
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            ))}
-          </LayoutGroup>
+            {range(numOfGroups).map((groupIndex) => {
+              const totalInPreviousGroups =
+                groupIndex * numOfItemsPerGroup;
+
+                return (
+                  <div key={groupIndex} className={styles.group}>
+                    {range(totalInPreviousGroups, totalInPreviousGroups +
+                      numOfItemsPerGroup).map((index) => {
+                      const layoutId = `${id}-${index}`;
+                      return (
+                        <motion.div
+                          layoutId={layoutId}
+                          key={layoutId}
+                          className={styles.item}
+                          transition={{
+                            type: 'spring',
+                            stiffness: 500,
+                            damping: 40 + index * 5,
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+              );
+            })}
+
+          </div>
         </div>
-      </div>
 
-      {includeRemainderArea && (
-        <div className={styles.remainderArea}>
-          <p className={styles.remainderHeading}>
-            Remainder Area
-          </p>
+        {includeRemainderArea && (
+          <div className={styles.remainderArea}>
+            <p className={styles.remainderHeading}>
+              Remainder Area
+            </p>
 
-          {range(remainder).map((index) => {
-            return (
-              <div key={index} className={styles.item} />
-            );
-          })}
-        </div>
-      )}
+            {range(totalNumInGroups, numOfItems)
+              .reverse()
+              .map((index) => {
+                const layoutId = `${id}-${index}`;
+              return (
+                <motion.div layoutId={layoutId} key={layoutId} className={styles.item} />
+              );
+            })}
+          </div>
+        )}
+      </LayoutGroup>
 
       <Equation
         dividend={numOfItems}
