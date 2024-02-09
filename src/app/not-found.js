@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { BLOG_TITLE } from '@/constants';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 
 function NotFound() {
