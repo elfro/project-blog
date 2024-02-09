@@ -1,30 +1,15 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 
 import BlogHero from '@/components/BlogHero';
-import CodeSnippet from '@/components/CodeSnippet';
-import Spinner from '@/components/Spinner';
 
+
+import COMPONENT_MAP from '@/helpers/mdx-components';
 import { loadBlogPost } from '@/helpers/file-helpers';
-
-import styles from './postSlug.module.css';
 import { NOT_FOUND_METADATA } from '@/constants';
 
-const DivisionGroupsDemo = dynamic(
-  () => import('../../components/DivisionGroupsDemo'),
-  {
-    loading: Spinner
-  }
-);
-
-const CircularColorsDemo = dynamic(
-  () => import('../../components/CircularColorsDemo'),
-  {
-    loading: Spinner
-  }
-);
+import styles from './postSlug.module.css';
 
 export async function generateMetadata({params}) {
   const postData = await loadBlogPost(params.postSlug);
@@ -59,11 +44,7 @@ async function BlogPost({params}) {
       <div className={styles.page}>
         <MDXRemote
           source={content}
-          components={{
-            DivisionGroupsDemo,
-            CircularColorsDemo,
-            pre: CodeSnippet
-          }}
+          components={COMPONENT_MAP}
         />
       </div>
     </article>

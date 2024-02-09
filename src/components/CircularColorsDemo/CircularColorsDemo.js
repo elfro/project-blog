@@ -29,11 +29,13 @@ function CircularColorsDemo() {
     if(!isPlaying) {
       return;
     }
-    const intervalId = setInterval(setTimeElapsed, 1000, timeElapsed + 1);
+    const intervalId = setInterval(() => {
+      setTimeElapsed(prevTime => prevTime + 1);
+    }, 1000);
 
 
     return () => clearInterval(intervalId);
-  }, [timeElapsed, isPlaying]);
+  }, [isPlaying]);
 
   const selectedColor = COLORS[timeElapsed % COLORS.length];
 
