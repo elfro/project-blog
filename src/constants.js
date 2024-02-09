@@ -1,5 +1,19 @@
 export const BLOG_TITLE = 'Bits & Bytes';
+export const BLOG_DESCRIPTION = 'A wonderful blog about JavaScript';
 
+export const NOT_FOUND_METADATA = {
+  title: `404 Not Found | ${BLOG_TITLE}`,
+  description: '404 Not Found',
+}
+
+export const COOKIE = {
+  COLOR_THEME: 'color-theme',
+}
+
+export const THEME = {
+  LIGHT: 'light',
+  DARK: 'dark'
+}
 export const LIGHT_COLORS = {
   '--color-text': 'hsl(0deg 0% 5%)',
   '--color-primary-100': 'hsl(240deg 100% 90%)',

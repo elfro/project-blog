@@ -4,11 +4,14 @@ import {
   Spline_Sans_Mono,
 } from 'next/font/google';
 import clsx from 'clsx';
-
-import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
+import { cookies } from 'next/headers';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import RespectMotionPreferences from '@/components/RespectMotionPreferences';
+
+import { LIGHT_TOKENS, DARK_TOKENS, COOKIE, THEME } from '@/constants';
+
 import './styles.css';
 
 const mainFont = Work_Sans({
@@ -25,22 +28,24 @@ const monoFont = Spline_Sans_Mono({
 });
 
 function RootLayout({ children }) {
-  // TODO: Dynamic theme depending on user preference
-  const theme = 'light';
+  const savedTheme = cookies().get(COOKIE.COLOR_THEME);
+  const theme = savedTheme?.value || THEME.LIGHT;
 
   return (
-    <html
-      lang="en"
-      className={clsx(mainFont.variable, monoFont.variable)}
-      data-color-theme={theme}
-      style={theme === 'light' ? LIGHT_TOKENS : DARK_TOKENS}
-    >
-      <body>
-        <Header theme={theme} />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <RespectMotionPreferences>
+      <html
+        lang="en"
+        className={clsx(mainFont.variable, monoFont.variable)}
+        data-color-theme={theme}
+        style={theme === THEME.LIGHT ? LIGHT_TOKENS : DARK_TOKENS}
+      >
+        <body>
+          <Header theme={theme} />
+          <main>{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </RespectMotionPreferences>
   );
 }
 
