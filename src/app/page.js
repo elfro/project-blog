@@ -3,22 +3,20 @@ import React from 'react';
 import BlogSummaryCard from '@/components/BlogSummaryCard';
 
 import { getBlogPostList } from '@/helpers/file-helpers';
-import { BLOG_TITLE } from '@/constants';
+import { BLOG_DESCRIPTION, BLOG_TITLE } from '@/constants';
 
-import styles from './homepage.module.css';
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 
 export const metadata = {
   title: BLOG_TITLE,
-  description: 'A wonderful blog about JavaScript',
+  description: BLOG_DESCRIPTION,
 }
 async function Home() {
   const posts = await getBlogPostList();
 
   return (
-    <div className={styles.wrapper}>
-      <h1 className={styles.mainHeading}>
-        Latest Content:
-      </h1>
+    <MaxWidthWrapper>
+      <h1>Latest Content:</h1>
 
       {posts.map(post =>
         (<BlogSummaryCard
@@ -29,8 +27,7 @@ async function Home() {
           publishedOn={post.publishedOn}
         />)
       )}
-
-    </div>
+    </MaxWidthWrapper>
   );
 }
 

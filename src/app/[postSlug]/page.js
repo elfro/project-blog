@@ -10,6 +10,7 @@ import Spinner from '@/components/Spinner';
 import { loadBlogPost } from '@/helpers/file-helpers';
 
 import styles from './postSlug.module.css';
+import { NOT_FOUND_METADATA } from '@/constants';
 
 const DivisionGroupsDemo = dynamic(
   () => import('../../components/DivisionGroupsDemo'),
@@ -29,7 +30,8 @@ export async function generateMetadata({params}) {
   const postData = await loadBlogPost(params.postSlug);
 
   if (!postData) {
-    return null;
+    // workaround to overcome the Next issue: metadata from not-found.js doesn't come
+    return NOT_FOUND_METADATA;
   }
 
   const {frontmatter: { title, abstract }} = postData;
