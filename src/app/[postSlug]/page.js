@@ -3,7 +3,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 
 import BlogHero from '@/components/BlogHero';
-
+import PageTableContent from '@/components/PageTableContent';
 
 import COMPONENT_MAP from '@/helpers/mdx-components';
 import { loadBlogPost } from '@/helpers/file-helpers';
@@ -33,21 +33,27 @@ async function BlogPost({params}) {
     notFound();
   }
 
-  const {frontmatter: { title, publishedOn}, content} = postData;
+  const {frontmatter: { title, publishedOn}, headings, content} = postData;
 
   return (
-    <article className={styles.wrapper}>
-      <BlogHero
-        title={title}
-        publishedOn={publishedOn}
-      />
-      <div className={styles.page}>
-        <MDXRemote
-          source={content}
-          components={COMPONENT_MAP}
-        />
-      </div>
-    </article>
+        <article className={styles.wrapper}>
+          <PageTableContent
+            className={styles.menu}
+            title='Content'
+            contentLinks={headings}
+          />
+          <BlogHero
+            title={title}
+            publishedOn={publishedOn}
+            className={styles.hero}
+          />
+          <div className={styles.page}>
+            <MDXRemote
+              source={content}
+              components={COMPONENT_MAP}
+            />
+          </div>
+        </article>
   );
 }
 
