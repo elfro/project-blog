@@ -1,0 +1,36 @@
+.wrapper {
+    display: none;
+}
+.stickyWrapper {
+    position: sticky;
+    top: 25px;
+    max-width: 18.75rem;
+    padding-right: 1rem;
+}
+.navHeading {
+    font-size: 1.25rem;
+    margin-top: 0;
+}
+
+.navLink {
+    display: block;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    transition: opacity 500ms ease 0s;
+    opacity: 0.7;
+    will-change: opacity;
+}
+
+@media (hover: hover) {
+    .navLink:hover {
+        opacity: 1;
+        transition: opacity 0ms ease 0s;
+    }
+}
+
+@media (min-width: 80rem) {
+    .wrapper {
+        display: revert;
+    }
+}
