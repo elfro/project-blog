@@ -4,7 +4,12 @@
   z-index: 2;
 }
 
+.hero {
+  grid-area: hero;
+}
+
 .page {
+  grid-area: article;
   position: relative;
   display: grid;
   grid-template-columns:
@@ -21,7 +26,20 @@
   grid-column: 2;
 }
 
+.menu {
+  grid-area: sidebar;
+}
+
 @media (min-width: 80rem) {
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr minmax(60rem, 2fr) 1fr;
+    grid-template-areas:
+        'hero hero hero'
+        'empty article sidebar';
+    gap: 2.5rem;
+  }
+
   .page {
     border: 1px solid var(--color-page-border);
 

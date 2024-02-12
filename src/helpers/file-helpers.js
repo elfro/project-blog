@@ -38,9 +38,27 @@ export const loadBlogPost = React.cache(async (slug) => {
 
   const { data: frontmatter, content } =
     matter(rawContent);
+  const headings = getHeadingsFromMDX(content);
 
-  return { frontmatter, content };
+  return { frontmatter, headings, content };
 });
+
+function getHeadingsFromMDX (source) {
+  const HEADING_REGEXP = /(#{1,6} .*)\r?\n/g;
+  const headings = Array.from(
+    source.matchAll(HEADING_REGEXP),
+    match => match[1]
+  );
+
+  return headings.map((raw) => {
+    const text = raw.replace(/^###*\s/, '');
+    // get h2 and h3 levels
+    const level = raw.slice(0, 3) === '###' ? 3 : 2;
+    const slug = text.toLowerCase().replaceAll(' ', '-');
+
+    return { level, text, slug };
+  });
+}
 
 function readFile(localPath) {
   return fs.readFile(
