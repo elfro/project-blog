@@ -18,13 +18,12 @@ async function Home() {
     <MaxWidthWrapper>
       <h1>Latest Content:</h1>
 
-      {posts.map(post =>
+      {posts.map((post, index) =>
         (<BlogSummaryCard
           key={post.slug}
           slug={post.slug}
-          title={post.title}
-          abstract={post.abstract}
-          publishedOn={post.publishedOn}
+          prefetch={index > 2 ? null : true}
+          {...post}
         />)
       )}
     </MaxWidthWrapper>

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import SmoothScrollTo from '@/components/SmoothScrollTo';
 
 import styles from './PageTableContent.module.css';
+
 function PageTableContent({title, contentLinks, className}) {
   return (
     <aside className={clsx(styles.wrapper, className)}>
