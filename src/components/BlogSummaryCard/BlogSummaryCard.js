@@ -11,6 +11,7 @@ function BlogSummaryCard({
   title,
   publishedOn,
   abstract,
+  prefetch
 }) {
   const href = `/${slug}`;
   const humanizedDate = format(
@@ -20,7 +21,7 @@ function BlogSummaryCard({
 
   return (
     <Card className={styles.wrapper}>
-      <Link href={href} className={styles.title}>
+      <Link href={href} className={styles.title} prefetch={prefetch}>
         {title}
       </Link>
       <time dateTime={publishedOn}>{humanizedDate}</time>
